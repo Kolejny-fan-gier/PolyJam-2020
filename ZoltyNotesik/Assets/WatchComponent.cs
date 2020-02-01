@@ -8,8 +8,6 @@ public class WatchComponent : Item
     public bool[] componentExists;
     public int[] componentID;
 
-    public bool isEmpty;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +35,6 @@ public class WatchComponent : Item
                     interactingPlayer[0].carriesItem = true;
                     interactingPlayer[0].freeToPickup = false;
                     interactingPlayer[0].itemSprite.sprite = itemImage;
-                    interactingPlayer[0].itemStateSprite.sprite = stateSprite.sprite;
                     interactingPlayer[0].droppedItemActivator = activator;
                     gameObject.SetActive(false);
                 }
@@ -49,7 +46,6 @@ public class WatchComponent : Item
                     interactingPlayer[1].carriesItem = true;
                     interactingPlayer[1].freeToPickup = false;
                     interactingPlayer[1].itemSprite.sprite = itemImage;
-                    interactingPlayer[1].itemStateSprite.sprite = stateSprite.sprite;
                     interactingPlayer[1].droppedItemActivator = activator;
                     gameObject.SetActive(false);
                 }

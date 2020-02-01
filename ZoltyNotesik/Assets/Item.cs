@@ -51,7 +51,6 @@ public class Item : MonoBehaviour
                     interactingPlayer[0].carriesItem = true;
                     interactingPlayer[0].freeToPickup = false;
                     interactingPlayer[0].itemSprite.sprite = itemImage;
-                    interactingPlayer[0].itemStateSprite.sprite = stateSprite.sprite;
                     interactingPlayer[0].droppedItemActivator = activator;
                     gameObject.SetActive(false);
                 }
@@ -63,7 +62,6 @@ public class Item : MonoBehaviour
                     interactingPlayer[1].carriesItem = true;
                     interactingPlayer[1].freeToPickup = false;
                     interactingPlayer[1].itemSprite.sprite = itemImage;
-                    interactingPlayer[1].itemStateSprite.sprite = stateSprite.sprite;
                     interactingPlayer[1].droppedItemActivator = activator;
                     gameObject.SetActive(false);
                 }

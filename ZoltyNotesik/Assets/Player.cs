@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public bool freeToPickup = true;
 
     public SpriteRenderer itemSprite;
+    public SpriteRenderer itemStateSprite;
     public Activator droppedItemActivator;
 
     // Start is called before the first frame update
@@ -25,7 +26,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         //OPUSZCZANIE ITEMÓW
-        if (carriesItem && Input.GetButtonDown("Pickup" + playerNumber))
+        if (carriesItem && Input.GetButtonDown("Pickup" + playerNumber) && freeToPickup)
         {
             DropItem();
         }
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour
         //carriedItem = null;
         droppedItemActivator = null;
         itemSprite.sprite = null;
+        itemStateSprite.sprite = null;
         carriesItem = false;
         freeToPickup = false;
     }

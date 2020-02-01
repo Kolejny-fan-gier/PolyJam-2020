@@ -37,27 +37,28 @@ public class Item : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {   //ITEM WCHODZI W GRACZA
         Player player = other.GetComponent<Player>();
+        Debug.Log("HEHE");
         if(player != null)
         {
-            if (Input.GetButton("Pickup" + player.playerNumber) && !player.carriesItem && player.freeTooPickup)
+            if (Input.GetButton("Pickup" + player.playerNumber) && !player.carriesItem && player.freeToPickup)
             {
                 if(player.playerNumber == 1)
                 {
-                    //player.carriedItem = GameManager.instance.items[itemID];
-                    player.droppedItemActivator = activator;
+                    //player.carriedItem = GameManager.instance.items[itemID];                  
                     player.carriesItem = true;
-                    player.freeTooPickup = false;
+                    player.freeToPickup = false;
                     player.itemSprite.sprite = itemImage;
+                    player.droppedItemActivator = activator;
                     //Destroy(gameObject);
                     gameObject.SetActive(false);
                 }
                 else
                 {
                     //player.carriedItem = GameManager.instance.items[itemID];
-                    player.droppedItemActivator = activator;
                     player.carriesItem = true;
-                    player.freeTooPickup = false;
+                    player.freeToPickup = false;
                     player.itemSprite.sprite = itemImage;
+                    player.droppedItemActivator = activator;
                     //Destroy(gameObject);
                     gameObject.SetActive(false);
                 }

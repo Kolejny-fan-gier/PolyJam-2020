@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     public Item carriedItem;
     public bool carriesItem;
-    public bool freeTooPickup;
+    public bool freeToPickup = true;
 
     public SpriteRenderer itemSprite;
     public Activator droppedItemActivator;
@@ -22,13 +22,25 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
+    {
+        //PODNOSZENIE I OPUSZCZANIE ITEMÓW
+        if (carriesItem && Input.GetButtonDown("Pickup" + playerNumber) && freeToPickup)
+        {
+            DropItem();
+        }
+        if(Input.GetButtonUp("Pickup" + playerNumber))
+        {
+            freeToPickup = true;
+        }
+    }
+    private void FixedUpdate()
     {
         //RUCH POSTACI
         float posX = Input.GetAxisRaw("Horizontal" + playerNumber);
         float posY = Input.GetAxisRaw("Vertical" + playerNumber);
 
-        if(posX != 0 || posY != 0)
+        if (posX != 0 || posY != 0)
         {
             Vector2 movement = new Vector2(posX, posY).normalized * speed;
             body.velocity = movement;
@@ -36,16 +48,6 @@ public class Player : MonoBehaviour
         else
         {
             body.velocity = Vector2.zero;
-        }
-
-        //PODNOSZENIE I OPUSZCZANIE ITEMÓW
-        if (carriesItem && Input.GetButtonDown("Pickup" + playerNumber) && freeTooPickup)
-        {
-            DropItem();
-        }
-        if(Input.GetButtonUp("Pickup" + playerNumber))
-        {
-            freeTooPickup = true;
         }
     }
 
@@ -58,6 +60,6 @@ public class Player : MonoBehaviour
         droppedItemActivator = null;
         itemSprite.sprite = null;
         carriesItem = false;
-        freeTooPickup = false;
+        freeToPickup = false;
     }
 }

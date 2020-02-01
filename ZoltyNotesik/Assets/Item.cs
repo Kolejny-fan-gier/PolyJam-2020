@@ -10,10 +10,13 @@ public class Item : MonoBehaviour
     public bool broken;
     public bool beyondRepair;
 
+    private Activator activator;
+
     // Start is called before the first frame update
     void Start()
     {
         image = GetComponent<SpriteRenderer>().sprite;
+        activator = GetComponentInParent<Activator>();
     }
 
     // Update is called once per frame
@@ -31,20 +34,22 @@ public class Item : MonoBehaviour
             {
                 if(player.playerNumber == 1)
                 {
-                    player.carriedItem = GameManager.instance.items[itemID];
+                    //player.carriedItem = GameManager.instance.items[itemID];
+                    player.droppedItemActivator = activator;
                     player.carriesItem = true;
                     player.freeTooPickup = false;
                     player.itemSprite.sprite = image;
-                    Destroy(gameObject);
+                    //Destroy(gameObject);
                     gameObject.SetActive(false);
                 }
                 else
                 {
-                    player.carriedItem = GameManager.instance.items[itemID];
+                    //player.carriedItem = GameManager.instance.items[itemID];
+                    player.droppedItemActivator = activator;
                     player.carriesItem = true;
                     player.freeTooPickup = false;
                     player.itemSprite.sprite = image;
-                    Destroy(gameObject);
+                    //Destroy(gameObject);
                     gameObject.SetActive(false);
                 }
             }

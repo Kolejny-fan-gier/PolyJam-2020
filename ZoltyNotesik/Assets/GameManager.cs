@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     public Item[] items;
     public static GameManager instance;
 
+    public int minBrokenPieces = 1;
+    public int maxBrokenPieces = 8;
+
     // Start is called before the first frame update
     void Start()
     {   

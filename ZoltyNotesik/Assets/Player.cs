@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public bool freeTooPickup;
 
     public SpriteRenderer itemSprite;
+    public Activator droppedItemActivator;
 
     // Start is called before the first frame update
     void Start()
@@ -48,9 +49,12 @@ public class Player : MonoBehaviour
     }
 
     void DropItem()
-    {      
-        Instantiate(carriedItem, transform.position, carriedItem.transform.rotation);
-        carriedItem = null;
+    {
+        //Instantiate(carriedItem, transform.position, carriedItem.transform.rotation);
+        droppedItemActivator.transform.position = transform.position;
+        droppedItemActivator.SetChildState(true);
+        //carriedItem = null;
+        droppedItemActivator = null;
         itemSprite.sprite = null;
         carriesItem = false;
         freeTooPickup = false;

@@ -22,15 +22,16 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //RUCH POSTACI
-        float posX = Input.GetAxisRaw("Horizontal" + playerNumber) * speed.x * Time.deltaTime;
-        float posY = Input.GetAxisRaw("Vertical" + playerNumber) * speed.y * Time.deltaTime;
+        float posX = Input.GetAxisRaw("Horizontal" + playerNumber);
+        float posY = Input.GetAxisRaw("Vertical" + playerNumber);
 
         if(posX != 0 || posY != 0)
         {
-            body.velocity = new Vector2(posX, posY).normalized;
+            Vector2 movement = new Vector2(posX, posY).normalized * speed;
+            body.velocity = movement;
         }
         else
         {

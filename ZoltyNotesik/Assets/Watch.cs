@@ -10,6 +10,8 @@ public class Watch : Item
     public int[] componentOrder = new int[] { 0, 1, 2, 3, 4, 5, 6 };
     public int[] componentOrderNoDecor = new int[] { 0, 1, 2, 3, 4, 5 };
 
+    public int componentsBroken;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +34,7 @@ public class Watch : Item
         componentBroken = new bool[7];
         hasMechComponent = new bool[3];
 
-        int componentsBroken = Random.Range(minBroken, maxBroken);
+        componentsBroken = Random.Range(minBroken, maxBroken);
         Shuffle();
 
         for(int i = 0; i < componentsBroken; i++)

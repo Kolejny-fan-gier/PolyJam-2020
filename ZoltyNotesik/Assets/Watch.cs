@@ -11,11 +11,13 @@ public class Watch : Item
     public int[] componentOrderNoDecor = new int[] { 0, 1, 2, 3, 4, 5 };
 
     public int componentsBroken;
+    public int casingID;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        itemImage = GetComponent<SpriteRenderer>().sprite;
+        activator = GetComponentInParent<Activator>();
     }
 
     // Update is called once per frame
@@ -26,6 +28,10 @@ public class Watch : Item
             RandomiseComponents(3, 7);
             ListComponents();
         }
+        if (!knownState) stateSprite.sprite = unknownImage;
+        else if (unfixable) stateSprite.sprite = unfixableImage;
+        else if (broken) stateSprite.sprite = brokenImage;
+        else stateSprite.sprite = repairedImage;
     }
 
     //No more than 7 broken basic components

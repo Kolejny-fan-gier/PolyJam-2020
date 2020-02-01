@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //PODNOSZENIE I OPUSZCZANIE ITEMÓW
-        if (carriesItem && Input.GetButtonDown("Pickup" + playerNumber) && freeToPickup)
+        //OPUSZCZANIE ITEMÓW
+        if (carriesItem && Input.GetButtonDown("Pickup" + playerNumber))
         {
             DropItem();
         }
@@ -37,12 +37,12 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         //RUCH POSTACI
-        float posX = Input.GetAxisRaw("Horizontal" + playerNumber);
-        float posY = Input.GetAxisRaw("Vertical" + playerNumber);
+        float moveX = Input.GetAxisRaw("Horizontal" + playerNumber);
+        float moveY = Input.GetAxisRaw("Vertical" + playerNumber);
 
-        if (posX != 0 || posY != 0)
+        if (moveX != 0 || moveY != 0)
         {
-            Vector2 movement = new Vector2(posX, posY).normalized * speed;
+            Vector2 movement = new Vector2(moveX, moveY).normalized * speed;
             body.velocity = movement;
         }
         else

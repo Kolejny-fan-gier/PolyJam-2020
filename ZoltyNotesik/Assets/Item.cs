@@ -4,65 +4,104 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    //State markers
     public Sprite itemImage;
     public Sprite repairedImage;
     public Sprite brokenImage;
     public Sprite unfixableImage;
     public Sprite unknownImage;
     public SpriteRenderer stateSprite;
+
     //public string itemName;
     public int itemID;
     public bool broken;
     public bool unfixable;
     public bool knownState;
 
+    public bool playerCollided;
+    public Player[] interactingPlayer;
+
     public Activator activator;
 
     // Start is called before the first frame update
     void Start()
     {
+        interactingPlayer = new Player[2];
+        interactingPlayer[0] = null;
+        interactingPlayer[1] = null;
         itemImage = GetComponent<SpriteRenderer>().sprite;
         activator = GetComponentInParent<Activator>();
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         if (!knownState) stateSprite.sprite = unknownImage;
         else if (unfixable) stateSprite.sprite = unfixableImage;
         else if (broken) stateSprite.sprite = brokenImage;
         else stateSprite.sprite = repairedImage;
-    }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {   //ITEM WCHODZI W GRACZA
-        Player player = other.GetComponent<Player>();
-        Debug.Log("HEHE");
-        if(player != null)
+        //This used to be in OnTriggerStay2D, but Unity hates us
+        if (playerCollided)
         {
-            if (Input.GetButton("Pickup" + player.playerNumber) && !player.carriesItem && player.freeToPickup)
+            if(interactingPlayer[0] != null)
             {
-                if(player.playerNumber == 1)
+                if (Input.GetButton("Pickup" + interactingPlayer[0].playerNumber) && !interactingPlayer[0].carriesItem && interactingPlayer[0].freeToPickup)
                 {
-                    //player.carriedItem = GameManager.instance.items[itemID];                  
-                    player.carriesItem = true;
-                    player.freeToPickup = false;
-                    player.itemSprite.sprite = itemImage;
-                    player.droppedItemActivator = activator;
-                    //Destroy(gameObject);
+                    interactingPlayer[0].carriesItem = true;
+                    interactingPlayer[0].freeToPickup = false;
+                    interactingPlayer[0].itemSprite.sprite = itemImage;
+                    interactingPlayer[0].droppedItemActivator = activator;
                     gameObject.SetActive(false);
                 }
-                else
+            }
+            if(interactingPlayer[1] != null)
+            {
+                if (Input.GetButton("Pickup" + interactingPlayer[1].playerNumber) && !interactingPlayer[1].carriesItem && interactingPlayer[1].freeToPickup)
                 {
-                    //player.carriedItem = GameManager.instance.items[itemID];
-                    player.carriesItem = true;
-                    player.freeToPickup = false;
-                    player.itemSprite.sprite = itemImage;
-                    player.droppedItemActivator = activator;
-                    //Destroy(gameObject);
+                    interactingPlayer[1].carriesItem = true;
+                    interactingPlayer[1].freeToPickup = false;
+                    interactingPlayer[1].itemSprite.sprite = itemImage;
+                    interactingPlayer[1].droppedItemActivator = activator;
                     gameObject.SetActive(false);
                 }
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        playerCollided = true;
+        if (interactingPlayer[0] == null)
+        {
+            interactingPlayer[0] = collision.GetComponent<Player>();
+        }
+        else
+        {
+            interactingPlayer[1] = collision.GetComponent<Player>();
+        }
+        Debug.Log("Item koliduje z graczem");
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        playerCollided = false;
+        if(interactingPlayer[0] == collision.GetComponent<Player>())
+        {
+            interactingPlayer[0] = null;
+        }
+        else
+        {
+            interactingPlayer[1] = null;
+        }
+        Debug.Log("Item odkolidowuje");
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {   //ITEM WCHODZI W GRACZA
+        //Player player = other.GetComponent<Player>();
+        
+        
+    }
+
 }

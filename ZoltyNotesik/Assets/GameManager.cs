@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Item[] items;
+    public Activator[] items;
     public static GameManager instance;
 
     public int minBrokenPieces = 1;
